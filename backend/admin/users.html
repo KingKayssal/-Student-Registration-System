@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - User Management</title>
+  <link rel="stylesheet" href="../../styles/style.css">
+  <link rel="stylesheet" href="../../styles/table.css">
+  <script src="../../scripts/admin-users.js" defer></script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #ff7b00 0%, #1e3c72 100%);
+      color: #333;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      padding: 30px;
+    }
+    h2 {
+      color: #1e3c72;
+      margin-bottom: 20px;
+    }
+    .btn {
+      background: #ff7b00;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 8px 18px;
+      cursor: pointer;
+      margin-right: 8px;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: #1e3c72;
+    }
+    .btn-secondary {
+      background: #1e3c72;
+    }
+    .btn-secondary:hover {
+      background: #ff7b00;
+    }
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    .table th, .table td {
+      padding: 12px;
+      border-bottom: 1px solid #eee;
+      text-align: left;
+    }
+    .table th {
+      background: #f8f9fa;
+      color: #1e3c72;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      font-weight: 600;
+      margin-bottom: 5px;
+      display: block;
+    }
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+    }
+    .actions {
+      display: flex;
+      gap: 10px;
+    }
+    .alert {
+      padding: 12px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    .alert-success {
+      background: #d4edda;
+      color: #155724;
+    }
+    .alert-error {
+      background: #f8d7da;
+      color: #721c24;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>👤 Admin User Management</h2>
+    <div class="alert alert-success" style="display:none;" id="successMsg">User added/updated successfully!</div>
+    <div class="alert alert-error" style="display:none;" id="errorMsg">Error: Could not process request.</div>
+    <form id="adminForm">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="role">Role</label>
+        <select id="role" name="role">
+          <option value="admin">Admin</option>
+          <option value="editor">Editor</option>
+          <option value="viewer">Viewer</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="status">Status</label>
+        <select id="status" name="status">
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+        </select>
+      </div>
+      <button type="submit" class="btn">Add/Update User</button>
+      <button type="reset" class="btn btn-secondary">Clear</button>
+    </form>
+    <h3 style="margin-top:40px; color:#ff7b00;">Admin Users</h3>
+    <table class="table" id="adminTable">
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+  <!-- Admin users will be rendered by JavaScript -->
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

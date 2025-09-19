@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Setup Database</title>
+  <link rel="stylesheet" href="../../styles/style.css">
+  <style>
+    body { background: linear-gradient(135deg, #ff7b00 0%, #1e3c72 100%); color: #333; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    .container { max-width: 700px; margin: 40px auto; background: #fff; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); padding: 30px; }
+    h2 { color: #1e3c72; margin-bottom: 20px; }
+    .btn { background: #ff7b00; color: #fff; border: none; border-radius: 5px; padding: 8px 18px; cursor: pointer; margin-right: 8px; transition: background 0.3s; }
+    .btn:hover { background: #1e3c72; }
+    .alert { padding: 12px; border-radius: 5px; margin-bottom: 20px; }
+    .alert-success { background: #d4edda; color: #155724; }
+    .alert-error { background: #f8d7da; color: #721c24; }
+    .status { margin-bottom: 20px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>🔧 Setup Database</h2>
+    <div class="alert alert-success" style="display:none;">Database created and schema installed successfully!</div>
+    <div class="alert alert-error" style="display:none;">Error: Could not setup database.</div>
+    <div class="status">
+      <p><strong>Status:</strong> Database exists, tables created, sample data present.</p>
+    </div>
+    <button class="btn">Setup Database</button>
+    <button class="btn">Import Schema</button>
+    <button class="btn">Check Tables</button>
+  </div>
+</body>
+</html>
