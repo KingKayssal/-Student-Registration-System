@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Students - Student Registration Portal</title>
+  <link rel="stylesheet" href="styles/style.css">
+  <link rel="stylesheet" href="styles/table.css">
+</head>
+<body>
+  <div class="container">
+    <header class="form-header">
+      <h2>👥 Registered Students</h2>
+      <p>View and manage all registered students</p>
+      <div class="header-actions">
+        <a href="index.html" class="back-link">← Back to Home</a>
+        <a href="register.html" class="btn btn-primary">Add New Student</a>
+      </div>
+    </header>
+    
+    <main>
+      <div class="search-section">
+        <div class="search-controls">
+          <input type="text" id="searchInput" placeholder="Search students by name, email, or course...">
+          <select id="courseFilter">
+            <option value="">All Courses</option>
+            <option value="Computer Science">Computer Science</option>
+            <option value="Business Administration">Business Administration</option>
+            <option value="Engineering">Engineering</option>
+            <option value="Medicine">Medicine</option>
+            <option value="Arts">Arts</option>
+            <option value="Science">Science</option>
+            <option value="Other">Other</option>
+          </select>
+          <select id="yearFilter">
+            <option value="">All Years</option>
+            <option value="1st Year">1st Year</option>
+            <option value="2nd Year">2nd Year</option>
+            <option value="3rd Year">3rd Year</option>
+            <option value="4th Year">4th Year</option>
+            <option value="Graduate">Graduate</option>
+          </select>
+          <button id="clearFilters" class="btn btn-secondary">Clear Filters</button>
+        </div>
+
+        <div class="advanced-search" id="advancedSearch" style="display: none;">
+          <h4>🔍 Advanced Search</h4>
+          <div class="advanced-controls">
+            <div class="form-group">
+              <label for="genderFilter">Gender:</label>
+              <select id="genderFilter">
+                <option value="">All Genders</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+                <option value="Prefer not to say">Prefer not to say</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="semesterFilter">Semester:</label>
+              <select id="semesterFilter">
+                <option value="">All Semesters</option>
+                <option value="Fall">Fall</option>
+                <option value="Spring">Spring</option>
+                <option value="Summer">Summer</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="dateFromFilter">Registration From:</label>
+              <input type="date" id="dateFromFilter">
+            </div>
+
+            <div class="form-group">
+              <label for="dateToFilter">Registration To:</label>
+              <input type="date" id="dateToFilter">
+            </div>
+
+            <div class="form-group">
+              <label for="ageFromFilter">Age From:</label>
+              <input type="number" id="ageFromFilter" min="16" max="100" placeholder="16">
+            </div>
+
+            <div class="form-group">
+              <label for="ageToFilter">Age To:</label>
+              <input type="number" id="ageToFilter" min="16" max="100" placeholder="100">
+            </div>
+          </div>
+        </div>
+
+        <div class="search-actions">
+          <button id="toggleAdvanced" class="btn btn-secondary" onclick="toggleAdvancedSearch()">
+            🔍 Advanced Search
+          </button>
+          <button id="applyFilters" class="btn btn-primary" onclick="applyAdvancedFilters()">
+            Apply Filters
+          </button>
+        </div>
+
+        <div class="export-controls">
+          <div class="bulk-actions">
+            <input type="checkbox" id="selectAll" onchange="toggleSelectAll()">
+            <label for="selectAll">Select All</label>
+            <button id="bulkDelete" class="btn btn-danger" onclick="bulkDeleteStudents()" disabled>Delete Selected</button>
+          </div>
+          <div class="export-buttons">
+            <button id="exportCSV" class="btn btn-primary" onclick="exportToCSV()">📊 Export CSV</button>
+            <button id="exportPDF" class="btn btn-secondary" onclick="exportToPDF()">📄 Export PDF</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="stats-section">
+        <div class="stat-card">
+          <h3 id="totalStudents">0</h3>
+          <p>Total Students</p>
+        </div>
+        <div class="stat-card">
+          <h3 id="totalCourses">0</h3>
+          <p>Different Courses</p>
+        </div>
+        <div class="stat-card">
+          <h3 id="newestStudent">-</h3>
+          <p>Latest Registration</p>
+        </div>
+      </div>
+      
+      <div class="table-container">
+        <div id="noStudents" class="no-data" style="display: none;">
+          <h3>📝 No Students Registered Yet</h3>
+          <p>Start by registering your first student!</p>
+          <a href="register.html" class="btn btn-primary">Register First Student</a>
+        </div>
+        
+        <table id="studentsTable" style="display: none;">
+          <thead>
+            <tr>
+              <th><input type="checkbox" id="headerCheckbox" onchange="toggleSelectAll()"></th>
+              <th>Student ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Course</th>
+              <th>Year</th>
+              <th>Semester</th>
+              <th>Registration Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="studentsTableBody">
+            <!-- Students will be populated here -->
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="pagination">
+        <button id="prevPage" class="btn btn-secondary" disabled>Previous</button>
+        <span id="pageInfo">Page 1 of 1</span>
+        <button id="nextPage" class="btn btn-secondary" disabled>Next</button>
+      </div>
+    </main>
+  </div>
+  
+  <!-- Student Details Modal -->
+  <div id="studentModal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Student Details</h3>
+        <span class="close">&times;</span>
+      </div>
+      <div class="modal-body" id="studentDetails">
+        <!-- Student details will be populated here -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal()">Close</button>
+        <button class="btn btn-primary" onclick="editStudent()">Edit Student</button>
+      </div>
+    </div>
+  </div>
+  
+  <script src="scripts/api-client.js"></script>
+  <script src="scripts/view-students-api.js"></script>
+</body>
+</html>

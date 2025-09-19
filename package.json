@@ -1,0 +1,15 @@
+{
+  "name": "student-registration-system",
+  "version": "1.0.0",
+  "description": "A modern, responsive frontend application for managing student registrations built with HTML, CSS, and JavaScript.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node backend/api/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5"
+  }
+}
